@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEMIR10 | Football Skills</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;background:#08110e;color:#f4fff8;
+  font-family:Arial,sans-serif
+}
+header{
+  padding:22px 7%;display:flex;justify-content:space-between;
+  align-items:center;gap:15px;flex-wrap:wrap;
+  border-bottom:1px solid #233d30
+}
+.logo{font-size:24px;font-weight:900}
+.logo span{color:#6dff9c}
+header small{color:#a2b9aa}
+main{max-width:1050px;margin:auto;padding:30px 18px}
+.hero{
+  padding:30px 0 38px;
+  background:radial-gradient(ellipse at 80% 30%,#153c28 0,transparent 55%)
+}
+.tag{color:#6dff9c;letter-spacing:3px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(36px,7vw,68px);line-height:1.05;margin:18px 0}
+h1 span{color:#6dff9c}
+p{color:#a9bcae;line-height:1.7}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:#101d17;border:1px solid #294534;border-radius:18px;padding:22px}
+h2{margin-top:0;font-size:21px}
+label{display:block;margin:14px 0 8px;color:#a9bcae;font-size:13px}
+select,input{
+  width:100%;padding:13px;border-radius:10px;
+  background:#09140e;color:white;border:1px solid #355441;font-size:16px
+}
+button{padding:13px 17px;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
+.green{background:#6dff9c;color:#08110e}
+.dark{background:#263b2d;color:white}
+.wide{width:100%;margin-top:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#09140e;padding:14px 6px;border-radius:10px;text-align:center}
+.stat strong{display:block;font-size:24px;color:#6dff9c}
+.stat small{color:#9db3a3;font-size:11px}
+.ball{font-size:54px;text-align:center;margin:10px}
+.move{font-size:30px;font-weight:900;text-align:center;margin:18px 0}
+.instructions{min-height:85px;color:#b7cbbb;line-height:1.7}
+.track{height:7px;background:#2a4032;border-radius:10px;overflow:hidden;margin:12px 0}
+#bar{height:100%;width:100%;background:#6dff9c}
+.timer{display:flex;justify-content:space-between;gap:10px}
+#clock{color:#6dff9c;font-weight:bold}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+footer{text-align:center;padding:30px;color:#718979;font-size:12px}
+@media(max-width:700px){.layout{grid-template-columns:1fr}header{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">DEMIR<span>10</span> ⚽</div>
+  <small>FOOTBALL SKILLS TRAINING</small>
+</header>
+
+<main>
+<section class="hero">
+  <div class="tag">TRAIN · PRACTICE · IMPROVE</div>
+  <h1>ТВОИ ФИНТЫ.<br><span>ТВОЯ ИГРА.</span></h1>
+  <p>Изучай футбольные движения, тренируй технику и проверяй себя на время.</p>
+</section>
+
+<div class="layout">
+<section class="panel">
+  <h2>01 / Настрой тренировку</h2>
+  <label for="level">Уровень сложности</label>
+  <select id="level">
+    <option value="easy">Лёгкий</option>
+    <option value="medium">Средний</option>
+    <option value="hard">Сложный</option>
+  </select>
+
+  <label for="duration">Время на финт</label>
+  <select id="duration">
+    <option value="30">30 секунд</option>
+    <option value="45">45 секунд</option>
+    <option value="60">60 секунд</option>
+  </select>
+  <button class="green wide" id="start">НАЧАТЬ ТРЕНИРОВКУ →</button>
+  <p style="font-size:12px">Совет: тренируйся на ровной площадке, где достаточно места.</p>
+</section>
+
+<section class="panel">
+  <h2>02 / Твоя статистика</h2>
+  <div class="stats">
+    <div class="stat"><strong id="points">0</strong><small>ОЧКИ</small></div>
+    <div class="stat"><strong id="done">0</strong><small>ТРЕНИРОВКИ</small></div>
+    <div class="stat"><strong id="best">0</strong><small>РЕКОРД</small></div>
+  </div>
+  <p>Выполнил финт на тренировке? Нажми кнопку «Выполнил» до окончания таймера.</p>
+  <p style="font-size:12px">Очки отражают отметки о тренировках, а не автоматическую оценку твоей техники.</p>
+</section>
+</div>
+
+<section class="panel" style="margin-top:18px">
+  <h2>03 / Тренируй финт</h2>
+  <div class="ball">⚽</div>
+  <div class="move" id="move">STEPOVER</div>
+  <div class="instructions" id="instructions">
+    Перенеси ногу вокруг мяча, будто собираешься двигаться в одну сторону, затем быстро уйди в другую.
+  </div>
+
+  <div class="timer" style="margin-top:18px">
+    <span>ВРЕМЯ</span><span id="clock">30 секунд</span>
+  </div>
+  <div class="track"><div id="bar"></div></div>
+
+  <div class="controls">
+    <button class="green" id="completed" disabled>✓ ВЫПОЛНИЛ</button>
+    <button class="dark" id="next" disabled>СЛЕДУЮЩИЙ →</button>
+  </div>
+  <p id="message">Нажми «Начать тренировку», чтобы запустить таймер.</p>
+</section>
+
+<section class="panel" style="margin-top:18px">
+  <h2>04 / Библиотека финтов</h2>
+  <p>Выбери движение, чтобы прочитать инструкцию.</p>
+  <div id="library" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px"></div>
+</section>
+</main>
+
+<footer>DEMIR10 FOOTBALL SKILLS · PLAY WITH CONFIDENCE</footer>
+
+<script>
+const moves=[
+ {name:"STEPOVER",level:"easy",text:"Перенеси ногу вокруг передней части мяча. Обманным движением покажи уход в сторону, затем коснись мяча внешней стороной другой ноги и ускорься."},
+ {name:"BODY FEINT",level:"easy",text:"Слегка наклони плечи и корпус в одну сторону. Затем быстро перенеси вес тела и уведи мяч в противоположную сторону."},
+ {name:"DRAG BACK",level:"easy",text:"Поставь подошву на мяч, потяни его назад и поверни корпус. После этого уведи мяч в свободное пространство."},
+ {name:"CRUYFF TURN",level:"medium",text:"Замахнись на передачу или удар. Вместо удара заведи ногу за опорную и внутренней стороной стопы направь мяч за себя."},
+ {name:"RONALDO CHOP",level:"medium",text:"Во время движения поставь опорную ногу рядом с мячом, а другой ногой направь мяч по диагонали за опорную ногу."},
+ {name:"DOUBLE STEPOVER",level:"medium",text:"Сделай два последовательных степовера, чтобы сбить соперника с ритма. Затем резко ускорься с мячом."},
+ {name:"ELASTICO",level:"hard",text:"Быстро толкни мяч внешней стороной стопы и почти сразу верни его внутренней стороной в другую сторону. Сначала отрабатывай медленно."},
+ {name:"ZIDANE TURN",level:"hard",text:"Подтяни мяч, разверни корпус на 180 градусов и контролируй мяч подошвой или внутренней стороной стопы во время поворота."}
+];
+
+const $=id=>document.getElementById(id);
+let current=0,points=0,done=0,best=0,remaining=30,timer=null,active=false;
+const names={easy:"ЛЁГКИЙ УРОВЕНЬ",medium:"СРЕДНИЙ УРОВЕНЬ",hard:"СЛОЖНЫЙ УРОВЕНЬ"};
+
+function renderLibrary(){
+ $("library").innerHTML="";
+ moves.forEach((m,i)=>{
+   const b=document.createElement("button");
+   b.className="dark";
+   b.textContent=m.name;
+   b.onclick=()=>showMove(i);
+   $("library").appendChild(b);
+ });
+}
+
+function showMove(i){
+ current=i;
+ $("move").textContent=moves[i].name;
+ $("instructions").textContent=moves[i].text;
+ $("message").textContent="Прочитай инструкцию и потренируй движение.";
+}
+
+function chooseMove(){
+ const level=$("level").value;
+ const available=moves.map((m,i)=>({m,i})).filter(x=>x.m.level===level);
+ const chosen=available[Math.floor(Math.random()*available.length)];
+ showMove(chosen.i);
+}
+
+function stop(){
+ clearInterval(timer);
+ timer=null;
+ active=false;
+ $("completed").disabled=true;
+ $("next").disabled=false;
+}
+
+function start(){
+ clearInterval(timer);
+ chooseMove();
+ remaining=Number($("duration").value);
+ active=true;
+ $("completed").disabled=false;
+ $("next").disabled=true;
+ $("clock").textContent=remaining+" секунд";
+ $("bar").style.width="100%";
+ $("bar").style.background="#6dff9c";
+ $("message").textContent="Время пошло! Попробуй выполнить финт.";
+ timer=setInterval(()=>{
+   remaining--;
+   $("clock").textContent=remaining+" секунд";
+   $("bar").style.width=Math.max(0,remaining/Number($("duration").value)*100)+"%";
+   if(remaining<=5)$("bar").style.background="#ff758f";
+   if(remaining<=0){
+     stop();
+     $("clock").textContent="0 секунд";
+     $("message").textContent="Время вышло. Попробуй ещё раз или выбери следующий финт.";
+   }
+ },1000);
+}
+
+$("start").onclick=start;
+$("completed").onclick=()=>{
+ if(!active)return;
+ points+=10;
+ done++;
+ best=Math.max(best,done);
+ $("points").textContent=points;
+ $("done").textContent=done;
+ $("best").textContent=best;
+ stop();
+ $("message").textContent="Отметка добавлена! +10 очков. Хорошая работа!";
+};
+$("next").onclick=start;
+$("level").onchange=()=>{
+ const filtered=moves.filter(m=>m.level===$("level").value);
+ $("instructions").textContent=names[$("level").value]+": "+filtered.length+" финта доступны для тренировки.";
+};
+renderLibrary();
+</script>
+</body>
+</html>
+
+
+
+
+
+
